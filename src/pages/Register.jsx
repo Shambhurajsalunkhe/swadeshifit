@@ -61,7 +61,7 @@ const Register = () => {
                   <User className="h-5 w-5 text-gray-400" />
                 </div>
                 <input id="name" name="name" type="text" value={formData.name} onChange={handleChange}
-                  className={inputClass('name')} placeholder="Arjun Verma" />
+                  className={inputClass('name')} placeholder="Tushar Kumar" />
               </div>
               {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name}</p>}
             </div>

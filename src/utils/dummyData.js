@@ -60,6 +60,36 @@ export const workouts = [
     calories: 250,
     image: "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=400",
     description: "Dynamic yoga practice for strength and flexibility"
+  },
+  {
+    id: 7,
+    name: "Surya Namaskar",
+    category: "Yoga",
+    difficulty: "Beginner",
+    duration: "15 min",
+    calories: 100,
+    image: "https://images.unsplash.com/photo-1599901860904-17e6ed7083a0?w=400",
+    description: "Traditional sun salutation sequence for full body activation"
+  },
+  {
+    id: 8,
+    name: "Kabaddi Conditioning",
+    category: "Sports Training",
+    difficulty: "Advanced",
+    duration: "50 min",
+    calories: 450,
+    image: "https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400",
+    description: "Agility and strength training inspired by kabaddi"
+  },
+  {
+    id: 9,
+    name: "Beginner Cardio",
+    category: "Cardio",
+    difficulty: "Beginner",
+    duration: "20 min",
+    calories: 180,
+    image: "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=400",
+    description: "Low-impact cardio perfect for beginners"
   }
 ];
 

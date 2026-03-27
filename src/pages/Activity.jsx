@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Plus, Calendar, MapPin, Clock, Flame } from 'lucide-react';
 import Button from '../components/Button';
 import ActivityChart from '../components/ActivityChart';
+import { useToast } from '../components/Toast';
 import { activities, weeklyData } from '../utils/dummyData';
 
 const card = "bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-2xl";
@@ -16,10 +17,11 @@ const Activity = () => {
 
   const activityTypes = ['Running', 'Walking', 'Cycling', 'Gym', 'Yoga', 'Swimming'];
   const icons = { Running: '🏃', Walking: '🚶', Cycling: '🚴', Gym: '💪', Yoga: '🧘', Swimming: '🏊' };
+  const toast = useToast();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    alert('Activity logged successfully!');
+    toast('Activity logged successfully!', 'success');
     setShowModal(false);
     setFormData({ type: 'Running', duration: '', distance: '', date: new Date().toISOString().split('T')[0] });
   };

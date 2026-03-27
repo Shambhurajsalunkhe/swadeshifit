@@ -1,8 +1,40 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Target, Users, TrendingUp, Award, Zap, Heart } from 'lucide-react';
+import { ArrowRight, Target, Users, TrendingUp, Award, Zap, Heart, CheckCircle } from 'lucide-react';
 import Button from '../components/Button';
 import { testimonials } from '../utils/dummyData';
+
+const useCountUp = (target, duration = 1500) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        let start = 0;
+        const step = target / (duration / 16);
+        const timer = setInterval(() => {
+          start += step;
+          if (start >= target) { setCount(target); clearInterval(timer); }
+          else setCount(Math.floor(start));
+        }, 16);
+        observer.disconnect();
+      }
+    });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [target, duration]);
+  return [count, ref];
+};
+
+const StatCounter = ({ value, suffix, label }) => {
+  const [count, ref] = useCountUp(value);
+  return (
+    <div ref={ref}>
+      <p className="text-3xl font-bold text-green-600">{count.toLocaleString()}{suffix}</p>
+      <p className="text-sm text-gray-600 dark:text-gray-400">{label}</p>
+    </div>
+  );
+};
 
 const Landing = () => {
   const features = [
@@ -42,18 +74,9 @@ const Landing = () => {
                 </Link>
               </div>
               <div className="mt-8 flex items-center space-x-8">
-                <div>
-                  <p className="text-3xl font-bold text-green-600">50K+</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Active Users</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-green-600">1M+</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Workouts Completed</p>
-                </div>
-                <div>
-                  <p className="text-3xl font-bold text-green-600">500+</p>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">Challenges</p>
-                </div>
+                <StatCounter value={50000} suffix="+" label="Active Users" />
+                <StatCounter value={1000000} suffix="+" label="Workouts Completed" />
+                <StatCounter value={500} suffix="+" label="Challenges" />
               </div>
             </div>
             <div className="relative">
@@ -120,6 +143,33 @@ const Landing = () => {
                   ))}
                 </div>
                 <p className="text-gray-600 dark:text-gray-400 italic">"{testimonial.content}"</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* How It Works */}
+      <section className="py-20 bg-white dark:bg-gray-800">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">How SwadeshiFit Works</h2>
+            <p className="text-xl text-gray-600 dark:text-gray-300">Get started in 3 simple steps</p>
+          </div>
+          <div className="grid md:grid-cols-3 gap-8">
+            {[
+              { step: '01', title: 'Create Your Profile', desc: 'Sign up and set your fitness goals, current weight, and preferred workout style.', icon: '👤' },
+              { step: '02', title: 'Follow Your Plan', desc: 'Get AI-powered workout recommendations and join community challenges.', icon: '📋' },
+              { step: '03', title: 'Track & Achieve', desc: 'Log activities, monitor progress, earn badges, and celebrate milestones.', icon: '🏆' },
+            ].map((item, i) => (
+              <div key={i} className="relative text-center">
+                {i < 2 && <div className="hidden md:block absolute top-8 left-full w-full h-0.5 bg-green-200 dark:bg-green-800 z-0" />}
+                <div className="relative z-10 w-16 h-16 bg-green-600 rounded-full flex items-center justify-center text-white text-2xl font-bold mx-auto mb-4">
+                  {item.step}
+                </div>
+                <div className="text-4xl mb-3">{item.icon}</div>
+                <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-2">{item.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400">{item.desc}</p>
               </div>
             ))}
           </div>

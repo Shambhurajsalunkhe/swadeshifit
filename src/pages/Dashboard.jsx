@@ -3,6 +3,9 @@ import { Link } from 'react-router-dom';
 import { Flame, Footprints, TrendingUp, Trophy, Dumbbell, Activity, Target, Calendar } from 'lucide-react';
 import ActivityChart from '../components/ActivityChart';
 import ProgressBar from '../components/ProgressBar';
+import BMICalculator from '../components/BMICalculator';
+import WaterTracker from '../components/WaterTracker';
+import MotivationalQuote from '../components/MotivationalQuote';
 import { weeklyData, challenges } from '../utils/dummyData';
 
 const card = "bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-2xl";
@@ -35,7 +38,7 @@ const Dashboard = () => {
       <div className="bg-gradient-to-r from-green-600 to-green-700 rounded-xl shadow-lg p-6 text-white">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Welcome back, Arjun! 👋</h1>
+            <h1 className="text-3xl font-bold mb-2">Welcome back, Tushar! 👋</h1>
             <p className="text-green-100">You're doing great! Keep up the momentum.</p>
           </div>
           <div className="hidden md:block text-right">
@@ -129,6 +132,15 @@ const Dashboard = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* Motivational Quote */}
+      <MotivationalQuote />
+
+      {/* BMI + Water Tracker */}
+      <div className="grid lg:grid-cols-2 gap-6">
+        <BMICalculator />
+        <WaterTracker />
       </div>
     </div>
   );

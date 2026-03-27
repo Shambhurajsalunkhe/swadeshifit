@@ -1,12 +1,16 @@
 import React, { useState } from 'react';
 import { Search, Filter } from 'lucide-react';
 import WorkoutCard from '../components/WorkoutCard';
+import WorkoutTimer from '../components/WorkoutTimer';
+import { useToast } from '../components/Toast';
 import { workouts } from '../utils/dummyData';
 
 const Workouts = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [selectedDifficulty, setSelectedDifficulty] = useState('All');
+  const [activeWorkout, setActiveWorkout] = useState(null);
+  const toast = useToast();
 
   const categories = ['All', 'Strength', 'Cardio', 'Yoga', 'Sports Training'];
   const difficulties = ['All', 'Beginner', 'Intermediate', 'Advanced'];
@@ -59,7 +63,7 @@ const Workouts = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredWorkouts.map(workout => (
             <WorkoutCard key={workout.id} workout={workout}
-              onStart={(w) => alert(`Starting ${w.name}!`)} />
+              onStart={(w) => { setActiveWorkout(w); toast(`Starting ${w.name}!`, 'success'); }} />
           ))}
         </div>
       ) : (
@@ -70,6 +74,10 @@ const Workouts = () => {
             Clear Filters
           </button>
         </div>
+      )}
+
+      {activeWorkout && (
+        <WorkoutTimer workout={activeWorkout} onClose={() => setActiveWorkout(null)} />
       )}
     </div>
   );

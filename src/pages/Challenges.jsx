@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Trophy, Medal, Award } from 'lucide-react';
 import ChallengeCard from '../components/ChallengeCard';
+import { useToast } from '../components/Toast';
 import { challenges, leaderboard } from '../utils/dummyData';
 
 const card = "bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-2xl";
 
 const Challenges = () => {
   const [activeTab, setActiveTab] = useState('active');
+  const toast = useToast();
 
   return (
     <div className="space-y-6">
@@ -58,7 +60,7 @@ const Challenges = () => {
       <div className="grid md:grid-cols-2 gap-6">
         {challenges.map(challenge => (
           <ChallengeCard key={challenge.id} challenge={challenge}
-            onJoin={(c) => alert(`Joining ${c.name}!`)} />
+            onJoin={(c) => toast(`Joined "${c.name}"!`, 'success')} />
         ))}
       </div>
 

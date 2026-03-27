@@ -10,9 +10,11 @@ import Workouts from './pages/Workouts';
 import Challenges from './pages/Challenges';
 import Activity from './pages/Activity';
 import Profile from './pages/Profile';
+import { ToastProvider } from './components/Toast';
 
 function App() {
   return (
+    <ToastProvider>
     <Router>
       <Routes>
         {/* Public Routes */}
@@ -35,6 +37,7 @@ function App() {
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </Router>
+    </ToastProvider>
   );
 }
 

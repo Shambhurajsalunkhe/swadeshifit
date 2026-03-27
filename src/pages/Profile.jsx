@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { TrendingUp, Target, Calendar, Award, Edit2, Save } from 'lucide-react';
 import Button from '../components/Button';
 import ProgressBar from '../components/ProgressBar';
+import { useToast } from '../components/Toast';
 import { userProfile, achievements } from '../utils/dummyData';
 
 const card = "bg-white dark:bg-gray-800 rounded-xl shadow-lg p-6 transition-all duration-300 hover:shadow-2xl";
@@ -10,6 +11,12 @@ const inputClass = "w-full px-4 py-3 border border-gray-300 dark:border-gray-600
 const Profile = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [profile, setProfile] = useState(userProfile);
+  const toast = useToast();
+
+  const handleSave = () => {
+    setIsEditing(false);
+    toast('Profile updated successfully!', 'success');
+  };
 
   return (
     <div className="space-y-6">
@@ -28,7 +35,7 @@ const Profile = () => {
               </p>
             </div>
           </div>
-          <Button variant="secondary" onClick={() => isEditing ? setIsEditing(false) : setIsEditing(true)}
+          <Button variant="secondary" onClick={() => isEditing ? handleSave() : setIsEditing(true)}
             className="flex items-center space-x-2">
             {isEditing ? <Save className="w-5 h-5" /> : <Edit2 className="w-5 h-5" />}
             <span>{isEditing ? 'Save' : 'Edit Profile'}</span>
